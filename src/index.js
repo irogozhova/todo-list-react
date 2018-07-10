@@ -1,11 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-// const numbers = ["one", "two", "three", "4", "5"];
-// const listItems = numbers.map((number) =>
-//   <li key={number.toString()}>{number}</li>
-// );
-
 function ToggleAll() {
     return <div className="toggle-all"></div>;
 }
@@ -14,53 +9,53 @@ function Input(props) {
     return <input onKeyPress={props.onKeyPress}></input>;
 }
 
-class TypeInBox extends React.Component {
-
-    handleEnterPress = (e) => {
-        if(e.key === 'Enter'){
-            console.log('enter pressed');
-        }
-    }
-
-    render() {
-        return (
-            <div className="header">
-                <ToggleAll />
-                <Input onKeyPress={this.handleEnterPress} />
-            </div>
-        )
-    }
-}
-
-class ListBody extends React.Component {
+class TodoList extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             todos: []
         };
     }
-    
+
+    handleEnterPress = (e) => {
+        if(e.key === 'Enter'){
+            console.log('enter pressed');
+            this.setState({
+                todos: [e.target.value].concat(this.state.todos),
+            });
+        }
+    }
+
     render () {
+        const listItems = this.state.todos.map((item) =>
+            <li key={item}>{item}</li>
+        )
+
         return (
-            <ul className="body">
-                
-            </ul>
+            <div>
+                <div className="header">
+                    <ToggleAll />
+                    <Input onKeyPress={this.handleEnterPress} />
+                </div>
+                <ul className="body">
+                    {listItems}
+                </ul>
+            </div>
         )
     } 
 }
 
-class TodoList extends React.Component {
+class ListContainer extends React.Component {
     render () {
         return (
             <div className="todo">
-                <TypeInBox />
-                <ListBody />
+                <TodoList />
             </div>
         )
     } 
 }
 
 ReactDOM.render(
-    <TodoList />,
+    <ListContainer />,
     document.getElementById('root')
 );
