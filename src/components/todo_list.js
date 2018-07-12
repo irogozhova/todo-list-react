@@ -13,17 +13,24 @@ class TodoList extends React.Component {
         };
     }
 
+    //JSON.parse(localStorage.getItem('todos'))
+
     handleEnterPress = (e) => {
         if(e.key === 'Enter' && e.target.value !== '') {
             this.setState({
-                todos: this.state.todos.concat([e.target.value])
-            });
+                todos: this.state.todos.concat(e.target.value)
+            }),
             e.target.value = "";
+            localStorage.setItem('todos', JSON.stringify(this.state.todos));
         }
     }
 
     render () {
-        const listItems = this.state.todos.map((item) =>
+        if (localStorage.getItem('todos') !== undefined) {
+            return <div>nothing here</div>
+        } 
+        const itemsFromStorage = JSON.parse(localStorage.getItem('todos'));
+        const listItems = itemsFromStorage.map((item) =>
             <li key={item}>{item}</li>
         )
 
