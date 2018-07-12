@@ -14,10 +14,11 @@ class TodoList extends React.Component {
     }
 
     handleEnterPress = (e) => {
-        if(e.key === 'Enter'){
+        if(e.key === 'Enter' && e.target.value !== '') {
             this.setState({
-                todos: [e.target.value].concat(this.state.todos),
+                todos: this.state.todos.concat([e.target.value])
             });
+            e.target.value = "";
         }
     }
 
