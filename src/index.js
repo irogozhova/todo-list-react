@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import TodoList from './components/todo_list';
+import TodoList from './components/TodoList';
 
 
 class App extends React.Component {

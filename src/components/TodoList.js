@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import ToggleAll from './toggle_all';
+import ToggleAll from './ToggleAll';
 
 function Input(props) {
     return <input onKeyPress={props.onKeyPress}></input>;
@@ -13,7 +13,7 @@ class TodoList extends React.Component {
         };
     }
 
-    //JSON.parse(localStorage.getItem('todos'))
+    //component will mount
 
     handleEnterPress = (e) => {
         if(e.key === 'Enter' && e.target.value !== '') {
