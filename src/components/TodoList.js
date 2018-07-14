@@ -25,15 +25,23 @@ class TodoList extends React.Component {
         }
     }
 
-    render () {
-        if (localStorage.getItem('todos') !== undefined) {
-            return <div>nothing here</div>
-        } 
-        const itemsFromStorage = JSON.parse(localStorage.getItem('todos'));
-        const listItems = itemsFromStorage.map((item) =>
-            <li key={item}>{item}</li>
-        )
+    isEmptyStorage = () => {
+        return (localStorage.getItem('todos') !== undefined);
+    } 
 
+    render () {
+       
+        const itemsFromStorage = JSON.parse(localStorage.getItem('todos'));
+        
+        var listItems;
+        if (this.isEmptyStorage) {
+            listItems = null;
+        } else {
+            listItems = itemsFromStorage.map((item) =>
+            <li key={item}>{item}</li>
+            );
+        }
+        
         return (
             <div>
                 <div className="header">
