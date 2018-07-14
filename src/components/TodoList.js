@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import ToggleAll from './ToggleAll';
 
 function Input(props) {
@@ -18,9 +18,10 @@ class TodoList extends React.Component {
 
     handleEnterPress = (e) => {
         if(e.key === 'Enter' && e.target.value !== '') {
-            this.setState({
-                todos: this.state.todos.concat(e.target.value)
-            }, () => localStorage.setItem('todos', JSON.stringify(this.state.todos))),
+            this.setState(
+                { todos: this.state.todos.concat(e.target.value) }, 
+                () => localStorage.setItem('todos', JSON.stringify(this.state.todos))
+            );
             e.target.value = "";
         }
     }
@@ -30,7 +31,6 @@ class TodoList extends React.Component {
         var listItems = this.state.todos.map((item) =>
             <li key={item}>{item}</li>
         );
-        console.log(listItems);
         
         return (
             <div>
