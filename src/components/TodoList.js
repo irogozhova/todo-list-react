@@ -10,7 +10,7 @@ class TodoList extends React.Component {
         super(props);
         var storageContents = JSON.parse(localStorage.getItem('todos'));
         this.state = {
-            todos: (storageContents === null || storageContents.length == 0) ? [] : storageContents
+            todos: (storageContents === null) ? [] : storageContents
         };
     }
 
