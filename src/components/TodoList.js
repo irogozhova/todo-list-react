@@ -8,8 +8,9 @@ function Input(props) {
 class TodoList extends React.Component {
     constructor(props) {
         super(props);
+        var storageContents = JSON.parse(localStorage.getItem('todos'));
         this.state = {
-            todos: []
+            todos: (storageContents === null || storageContents.length == 0) ? [] : storageContents
         };
     }
 
@@ -19,28 +20,17 @@ class TodoList extends React.Component {
         if(e.key === 'Enter' && e.target.value !== '') {
             this.setState({
                 todos: this.state.todos.concat(e.target.value)
-            }),
+            }, () => localStorage.setItem('todos', JSON.stringify(this.state.todos))),
             e.target.value = "";
-            localStorage.setItem('todos', JSON.stringify(this.state.todos));
         }
     }
 
-    isEmptyStorage = () => {
-        return (localStorage.getItem('todos') !== undefined);
-    } 
-
     render () {
-       
-        const itemsFromStorage = JSON.parse(localStorage.getItem('todos'));
-        
-        var listItems;
-        if (this.isEmptyStorage) {
-            listItems = null;
-        } else {
-            listItems = itemsFromStorage.map((item) =>
+
+        var listItems = this.state.todos.map((item) =>
             <li key={item}>{item}</li>
-            );
-        }
+        );
+        console.log(listItems);
         
         return (
             <div>
