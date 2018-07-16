@@ -1,9 +1,6 @@
 import React from 'react';
 import ToggleAll from './ToggleAll';
-
-function Input(props) {
-    return <input className="new-todo" placeholder="What needs to be done?" onKeyPress={props.onKeyPress}></input>;
-}
+import TodoInput from './TodoInput';
 
 class TodoList extends React.Component {
     constructor(props) {
@@ -14,7 +11,9 @@ class TodoList extends React.Component {
         };
     }
 
-    //component did mount
+    // componentDidMount() {
+    //     console.log('GrandChild did mount.');
+    // }
 
     handleEnterPress = (e) => {
         if(e.key === 'Enter' && e.target.value !== '') {
@@ -36,7 +35,7 @@ class TodoList extends React.Component {
             <div>
                 <div className="header">
                     <ToggleAll />
-                    <Input onKeyPress={this.handleEnterPress} />
+                    <TodoInput onKeyPress={this.handleEnterPress} />
                 </div>
                 <ul className="body">
                     {listItems}
