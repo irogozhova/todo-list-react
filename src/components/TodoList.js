@@ -12,21 +12,37 @@ class TodoList extends React.Component {
     }
 
     //maybe put initial state setting from local storage inside the componentWillMount?
+    updateStorage() {
+        localStorage.setItem('todos', JSON.stringify(this.state.todos));
+    }
 
     handleEnterPress = (e) => {
-        if(e.key === 'Enter' && e.target.value !== '') {
+        if (e.key === 'Enter' && e.target.value !== '') {
             this.setState(
                 { todos: this.state.todos.concat(e.target.value) }, 
-                () => localStorage.setItem('todos', JSON.stringify(this.state.todos))
+                () => this.updateStorage()
             );
             e.target.value = "";
         }
     }
 
+    handleRemoveButton = (e) => {
+        let removedLabelText = e.target.parentElement.querySelector('label').innerHTML;
+        this.setState(
+            { todos: this.state.todos.filter(element => element !== removedLabelText) }, 
+            () => this.updateStorage()
+        );
+        //console.log(this.state.todos);
+    }
+
     render () {
 
         var listItems = this.state.todos.map((item) =>
-            <li key={item}><input type="checkbox" className="toggle"/><label>{item}</label><button className="destroy"></button></li>
+            <li key={item}>
+                <input type="checkbox" className="toggle"/>
+                <label>{item}</label>
+                <button className="destroy" onClick={this.handleRemoveButton}></button>
+            </li>
         );
         
         return (
