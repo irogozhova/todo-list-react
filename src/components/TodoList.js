@@ -5,15 +5,25 @@ import TodoInput from './TodoInput';
 class TodoList extends React.Component {
     constructor(props) {
         super(props);
-        var storageContents = JSON.parse(localStorage.getItem('todos'));
-        this.state = {
-            todos: (storageContents === null) ? [] : storageContents
-        };
+        // var storageContents = JSON.parse(localStorage.getItem('todos'));
+        // this.state = {
+        //     todos: (storageContents === null) ? [] : storageContents
+        // };
+        this.state = { todos: undefined };
     }
 
-    // componentDidMount() {
-    //     console.log('GrandChild did mount.');
-    // }
+    //maybe put initial state setting from local storage inside the componentWillMount?
+    componentWillMount() {
+        let storageContents = JSON.parse(localStorage.getItem('todos'));
+        let todos;
+        if (storageContents === null) {
+            todos = [];
+        } 
+        else {
+            todos = storageContents;
+        }
+        this.setState({ todos });
+    }
 
     handleEnterPress = (e) => {
         if(e.key === 'Enter' && e.target.value !== '') {
