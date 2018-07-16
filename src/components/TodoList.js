@@ -1,6 +1,7 @@
 import React from 'react';
 import ToggleAll from './ToggleAll';
 import TodoInput from './TodoInput';
+import Checkbox from './Checkbox'
 
 class TodoList extends React.Component {
     constructor(props) {
@@ -27,19 +28,20 @@ class TodoList extends React.Component {
     }
 
     handleRemoveButton = (e) => {
-        let removedLabelText = e.target.parentElement.querySelector('label').innerHTML;
+        let removedItem = e.target.parentElement;
+        let removedItemIndex = Array.from(removedItem.parentNode.children).indexOf(removedItem);
+        let newArray = (this.state.todos.slice(0,removedItemIndex).concat(this.state.todos.slice(removedItemIndex+1)));
         this.setState(
-            { todos: this.state.todos.filter(element => element !== removedLabelText) }, 
+            { todos: newArray }, 
             () => this.updateStorage()
         );
-        //console.log(this.state.todos);
     }
 
     render () {
 
         var listItems = this.state.todos.map((item) =>
             <li key={item}>
-                <input type="checkbox" className="toggle"/>
+                <Checkbox />
                 <label>{item}</label>
                 <button className="destroy" onClick={this.handleRemoveButton}></button>
             </li>
