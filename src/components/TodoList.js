@@ -2,7 +2,7 @@ import React from 'react';
 import ToggleAll from './ToggleAll';
 
 function Input(props) {
-    return <input onKeyPress={props.onKeyPress}></input>;
+    return <input className="new-todo" placeholder="What needs to be done?" onKeyPress={props.onKeyPress}></input>;
 }
 
 class TodoList extends React.Component {
@@ -14,7 +14,7 @@ class TodoList extends React.Component {
         };
     }
 
-    //component will mount
+    //component did mount
 
     handleEnterPress = (e) => {
         if(e.key === 'Enter' && e.target.value !== '') {
@@ -29,7 +29,7 @@ class TodoList extends React.Component {
     render () {
 
         var listItems = this.state.todos.map((item) =>
-            <li key={item}>{item}</li>
+            <li key={item}><input type="checkbox" className="toggle"/><label>{item}</label><button className="destroy"></button></li>
         );
         
         return (
