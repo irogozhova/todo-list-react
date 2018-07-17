@@ -10,17 +10,19 @@ class TodoList extends React.Component {
         this.state = {
             todos: (storageContents === null) ? [] : storageContents
         };
+        
     }
 
     //maybe put initial state setting from local storage inside the componentWillMount?
     updateStorage() {
         localStorage.setItem('todos', JSON.stringify(this.state.todos));
     }
-
+    
     handleEnterPress = (e) => {
-        if (e.key === 'Enter' && e.target.value !== '') {
+        if (e.key === 'Enter' && e.target.valtodosue !== '') {
+            let newAddedObject = {label: e.target.value, checked: false}
             this.setState(
-                { todos: this.state.todos.concat(e.target.value) }, 
+                { todos: this.state.todos.concat([newAddedObject]) },
                 () => this.updateStorage()
             );
             e.target.value = "";
@@ -30,7 +32,7 @@ class TodoList extends React.Component {
     handleRemoveButton = (e) => {
         let removedItem = e.target.parentElement;
         let removedItemIndex = Array.from(removedItem.parentNode.children).indexOf(removedItem);
-        let newArray = (this.state.todos.slice(0,removedItemIndex).concat(this.state.todos.slice(removedItemIndex+1)));
+        let newArray = (this.state.todos.slice(0,removedItemIndex).concat(this.state.todos.slice(removedItemIndex+1))); //shorter & more beautiful way to do it?
         this.setState(
             { todos: newArray }, 
             () => this.updateStorage()
@@ -38,10 +40,10 @@ class TodoList extends React.Component {
     }
 
     render () {
-
-        var listItems = this.state.todos.map((item) =>
+        let labels = this.state.todos.map(item => item.label)
+        var listItems = labels.map((item) =>
             <li key={item}>
-                <Checkbox />
+                <Checkbox {...this.state} />
                 <label>{item}</label>
                 <button className="destroy" onClick={this.handleRemoveButton}></button>
             </li>

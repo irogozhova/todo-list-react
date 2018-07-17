@@ -123,6 +123,7 @@ ul li {
 
 label {
     padding: 15px 60px 15px 15px;
+    min-height: 27px;
     margin-left: 45px;
     display: block;
     line-height: 1.2;
