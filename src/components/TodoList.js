@@ -10,10 +10,8 @@ class TodoList extends React.Component {
         this.state = {
             todos: (storageContents === null) ? [] : storageContents
         };
-        
     }
 
-    //maybe put initial state setting from local storage inside the componentWillMount?
     updateStorage() {
         localStorage.setItem('todos', JSON.stringify(this.state.todos));
     }
