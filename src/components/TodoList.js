@@ -10,7 +10,6 @@ class TodoList extends React.Component {
         this.state = {
             todos: (storageContents === null) ? [] : storageContents
         };
-        //testline
     }
 
     updateStorage() {
