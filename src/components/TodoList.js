@@ -2,6 +2,7 @@ import React from 'react';
 import ToggleAll from './ToggleAll';
 import TodoInput from './TodoInput';
 import Item from './Item'
+import Footer from './Footer'
 
 class TodoList extends React.Component {
 	constructor(props) {
@@ -93,6 +94,9 @@ class TodoList extends React.Component {
 				<ul className="body">
 					{listItems}
 				</ul>
+				<div className="footer">
+					<Footer />
+				</div>
 			</div>
 		)
 	} 

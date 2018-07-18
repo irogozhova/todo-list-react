@@ -176,7 +176,9 @@ label {
 }
 
 .footer .filters li {
-	display: inline;
+    display: inline;
+    font-size: 15px;
+    border-bottom: none;
 }
 
 .footer .filters li a {
@@ -186,6 +188,7 @@ label {
     text-decoration: none;
     border: 1px solid transparent;
     border-radius: 3px;
+    cursor: pointer;
 }
 
 .footer .filters li a:hover {
