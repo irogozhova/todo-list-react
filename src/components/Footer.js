@@ -1,7 +1,6 @@
 import React from 'react';
 
-const Footer = (props) => {
-
+function Footer(props) {
     return (
         <div>
             <span className="count-active">
@@ -9,9 +8,9 @@ const Footer = (props) => {
                 <span id="item-text">{(props.leftItems() === 1) ? 'item' : 'items'}</span> left
             </span>
             <ul className="filters">
-                <li><a id="tab-all" className="tablink selected" onClick={props.tabClick}>All</a></li>
-                <li><a id="tab-active" className="tablink" onClick={props.tabClick}>Active</a></li>
-                <li><a id="tab-completed" className="tablink" onClick={props.tabClick}>Completed</a></li>
+                <li><a id="tab-all" className="tablink selected">All</a></li>
+                <li><a id="tab-active" className="tablink">Active</a></li>
+                <li><a id="tab-completed" className="tablink">Completed</a></li>
             </ul>
             <button className="clear-completed">Сlear сompleted</button>
         </div>
