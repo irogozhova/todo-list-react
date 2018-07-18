@@ -9,8 +9,47 @@ class TodoList extends React.Component {
 		super(props);
 		var storageContents = JSON.parse(localStorage.getItem('todos'));
 		this.state = {
-			todos: (storageContents === null) ? [] : storageContents
+			todos: (storageContents === null) ? [] : storageContents,
+			todosView: [],
+			currentTab: 'tab-all'
 		};
+	}
+
+	componentWillMount() {
+		console.log(this.state.currentTab);
+		console.log(this.state.todosView);
+		this.changeTabs();
+	}
+
+	changeTabs() {
+		console.log("changetabs launched")
+		const {currentTab, todos} = this.state;
+		switch (currentTab) {
+			case 'tab-all':
+				this.setState({ todosView: todos })
+				
+				break;
+			case 'tab-active':
+				this.setState({ todosView: todos.filter(item => !item.isChecked)})
+				console.log("current is tab-active")
+				break;
+			case 'tab-completed':
+				this.setState({ todosView: todos.filter(item => item.isChecked)})
+				break;
+			default:
+				throw 'Unknown tab name';
+		}
+	}
+
+	clickOnTab = (e) => {
+		const tabs = document.getElementsByClassName("tablink");
+		for (var i=0; i < tabs.length; i++) {
+			tabs[i].classList.remove('selected');
+		}
+		e.target.classList.add('selected');
+		this.setState(
+			{ currentTab: e.target.id }
+		);
 	}
 
 	updateStorage() {
@@ -21,8 +60,8 @@ class TodoList extends React.Component {
 		if (e.key === 'Enter' && e.target.value !== '') {
 			let newAddedObject = {label: e.target.value, isChecked: false}
 			this.setState(
-					{ todos: this.state.todos.concat([newAddedObject]) },
-					() => this.updateStorage()
+				{ todos: this.state.todos.concat([newAddedObject]) },
+				() => this.updateStorage()
 			);
 			e.target.value = "";
 		}
@@ -75,7 +114,8 @@ class TodoList extends React.Component {
 	}
 
 	render () {
-		var listItems = this.state.todos.map((item, i) =>
+		//console.log(this.state.todosView)
+		var listItems = this.state.todosView.map((item, i) =>
 			{
 				return (
 					<Item
@@ -100,7 +140,7 @@ class TodoList extends React.Component {
 					{listItems}
 				</ul>
 				<div className="footer">
-					<Footer leftItems={this.countLeftItems}/>
+					<Footer leftItems={this.countLeftItems} tabClick={this.clickOnTab}/>
 				</div>
 			</div>
 		)
