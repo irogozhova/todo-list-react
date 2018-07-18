@@ -28,8 +28,8 @@ class TodoList extends React.Component {
 	}
 
 	handleRemoveButton = (index) => {
-		const todos = [...this.state.todos];
-		todos.splice(index, 1);// why can't I do directly like this: todos = this.state.todos.splice(index, 1)??
+		const todos = [...this.state.todos]; //ES6 spread function
+		todos.splice(index, 1);
 		
 		this.setState(
 			{ todos: todos }, 
@@ -47,6 +47,23 @@ class TodoList extends React.Component {
 
 		this.setState(
 			{ todos: todos },
+			() => this.updateStorage()
+		);
+	}
+
+	toggleAll = () => {
+		const arrayOfUnchecked = this.state.todos.filter((item) => !item.isChecked)
+		const temp = this.state.todos.map((item) => {
+			if (arrayOfUnchecked.length === 0) {
+				return { label: item.label , isChecked: !item.isChecked } 
+			}
+			else {
+				return item.isChecked ? item : {label: item.label , isChecked: !item.isChecked} 
+			}
+		});
+
+		this.setState(
+			{ todos: temp },
 			() => this.updateStorage()
 		);
 	}
@@ -70,7 +87,7 @@ class TodoList extends React.Component {
 		return (
 			<div>
 				<div className="header">
-					<ToggleAll />
+					<ToggleAll onClick={this.toggleAll}/>
 					<TodoInput onKeyPress={this.handleEnterPress} />
 				</div>
 				<ul className="body">

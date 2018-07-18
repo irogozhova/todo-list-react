@@ -1,7 +1,7 @@
 import React from 'react';
 
-const ToggleAll = () => {
-    return <div className="toggle-all"></div>;
+function ToggleAll(props) {
+    return <div className="toggle-all" onClick={props.onClick}></div>;
 }
 
 export default ToggleAll;
