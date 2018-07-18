@@ -27,12 +27,12 @@ class TodoList extends React.Component {
 		}
 	}
 
-	handleRemoveButton = (e) => {
-		let removedItem = e.target.parentElement;
-		let removedItemIndex = Array.from(removedItem.parentNode.children).indexOf(removedItem);
-		let newArray = (this.state.todos.slice(0,removedItemIndex).concat(this.state.todos.slice(removedItemIndex+1))); //shorter & more beautiful way to do it?
+	handleRemoveButton = (index) => {
+		const todos = [...this.state.todos];
+		todos.splice(index, 1);// why can't I do directly like this: todos = this.state.todos.splice(index, 1)??
+		
 		this.setState(
-			{ todos: newArray }, 
+			{ todos: todos }, 
 			() => this.updateStorage()
 		);
 	}
@@ -61,6 +61,7 @@ class TodoList extends React.Component {
 						label={item.label}
 						isChecked={item.isChecked}
 						onCheck={this.handleCheck}
+						onRemove={this.handleRemoveButton}
 					/>
 				)
 			}
