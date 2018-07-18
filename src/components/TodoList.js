@@ -53,7 +53,7 @@ class TodoList extends React.Component {
 	}
 
 	toggleAll = () => {
-		const arrayOfUnchecked = this.state.todos.filter((item) => !item.isChecked)
+		const arrayOfUnchecked = this.state.todos.filter(item => !item.isChecked)
 		const temp = this.state.todos.map((item) => {
 			if (arrayOfUnchecked.length === 0) {
 				return { label: item.label , isChecked: !item.isChecked } 
@@ -67,6 +67,11 @@ class TodoList extends React.Component {
 			{ todos: temp },
 			() => this.updateStorage()
 		);
+	}
+
+	countLeftItems = () => {
+		const temp = this.state.todos.filter(item => !item.isChecked)
+		return temp.length
 	}
 
 	render () {
@@ -95,7 +100,7 @@ class TodoList extends React.Component {
 					{listItems}
 				</ul>
 				<div className="footer">
-					<Footer />
+					<Footer leftItems={this.countLeftItems}/>
 				</div>
 			</div>
 		)
