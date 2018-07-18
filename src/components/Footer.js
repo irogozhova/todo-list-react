@@ -4,7 +4,8 @@ function Footer(props) {
     return (
         <div>
             <span className="count-active">
-                <strong id="active">{props.leftItems()}</strong> <span id="item-text">items</span> left
+                <strong id="active">{props.leftItems()} </strong> 
+                <span id="item-text">{(props.leftItems() === 1) ? 'item' : 'items'}</span> left
             </span>
             <ul className="filters">
                 <li><a id="tab-all" className="tablink selected">All</a></li>
