@@ -36,6 +36,7 @@ class TodoList extends React.Component {
 	}
 
 	clickOnTab = (e) => {
+		console.log("clicked")
 		const tabs = document.getElementsByClassName("tablink");
 		for (var i=0; i < tabs.length; i++) {
 			tabs[i].classList.remove('selected');
@@ -44,7 +45,7 @@ class TodoList extends React.Component {
 		this.setState(
 			{ currentTab: e.target.id }
 		);
-		this.changeTabs();
+		//this.changeTabs();
 	}
 
 	updateStorage() {
