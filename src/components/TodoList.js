@@ -3,6 +3,7 @@ import ToggleAll from './ToggleAll';
 import TodoInput from './TodoInput';
 import Item from './Item'
 import Footer from './Footer'
+var uniqid = require('uniqid');
 
 class TodoList extends React.Component {
 	constructor(props) {
@@ -10,28 +11,19 @@ class TodoList extends React.Component {
 		var storageContents = JSON.parse(localStorage.getItem('todos'));
 		this.state = {
 			todos: (storageContents === null) ? [] : storageContents,
-			todosView: [],
 			currentTab: 'tab-all'
 		};
 	}
 
-	componentWillMount() {
-		this.changeTabs();
-	}
-
-	changeTabs() {
-		console.log("!!!!");
+	todosFilteredByTab() {
 		const {currentTab} = this.state;
 		switch (currentTab) {
 			case 'tab-all':
-				this.setState({ todosView: this.state.todos })
-				break;
+				return this.state.todos
 			case 'tab-active':
-				this.setState({ todosView: this.state.todos.filter(item => !item.isChecked)})
-				break;
+				return this.state.todos.filter(item => !item.isChecked)
 			case 'tab-completed':
-				this.setState({ todosView: this.state.todos.filter(item => item.isChecked)})
-				break;
+				return this.state.todos.filter(item => item.isChecked)
 			default:
 				throw new Error('Unknown tab name');
 		}
@@ -46,7 +38,6 @@ class TodoList extends React.Component {
 		this.setState(
 			{ currentTab: e.target.id }
 		);
-		this.changeTabs();
 	}
 
 	updateStorage() {
@@ -55,7 +46,7 @@ class TodoList extends React.Component {
 	
 	handleEnterPress = (e) => {
 		if (e.key === 'Enter' && e.target.value !== '') {
-			let newAddedObject = {label: e.target.value, isChecked: false}
+			let newAddedObject = {id: uniqid(), label: e.target.value, isChecked: false}
 			this.setState(
 					{ todos: this.state.todos.concat([newAddedObject]) },
 					() => this.updateStorage()
@@ -64,9 +55,10 @@ class TodoList extends React.Component {
 		}
 	}
 
-	handleRemoveButton = (index) => {
+	handleRemoveButton = (id) => {
 		const todos = [...this.state.todos]; //ES6 spread function
-		todos.splice(index, 1);
+		const removeIndex = todos.findIndex(obj => obj.id === id)
+		todos.splice(removeIndex, 1);
 		
 		this.setState(
 			{ todos: todos }, 
@@ -74,10 +66,10 @@ class TodoList extends React.Component {
 		);
 	}
 
-	handleCheck = (index, isChecked) => {
-		const todos = this.state.todos.map((item, i) => {
-			if (i === index) {
-				return { label: item.label, isChecked: isChecked };
+	handleCheck = (id, isChecked) => {
+		const todos = this.state.todos.map((item) => {
+			if (item.id === id) {
+				return { id: item.id, label: item.label, isChecked: isChecked };
 			}
 			return item;
 		});
@@ -92,10 +84,10 @@ class TodoList extends React.Component {
 		const arrayOfUnchecked = this.state.todos.filter(item => !item.isChecked)
 		const temp = this.state.todos.map((item) => {
 			if (arrayOfUnchecked.length === 0) {
-				return { label: item.label , isChecked: !item.isChecked } 
+				return { id: item.id, label: item.label , isChecked: !item.isChecked } 
 			}
 			else {
-				return item.isChecked ? item : {label: item.label , isChecked: !item.isChecked} 
+				return item.isChecked ? item : {id: item.id, label: item.label , isChecked: !item.isChecked} 
 			}
 		});
 
@@ -123,11 +115,14 @@ class TodoList extends React.Component {
 	}
 
 	render () {
-		var listItems = this.state.todos.map((item, i) =>
+		console.log("render")
+		
+		var listItems = this.todosFilteredByTab().map((item, i) =>
 			{
 				return (
 					<Item
 						key={i} 
+						id={item.id}
 						index={i}
 						label={item.label}
 						isChecked={item.isChecked}
@@ -137,6 +132,7 @@ class TodoList extends React.Component {
 				)
 			}
 		);
+		
 			
 		return (
 			<div>
@@ -147,7 +143,7 @@ class TodoList extends React.Component {
 				<ul className="body">
 					{listItems}
 				</ul>
-				<div className="footer" style={{ display: listItems.length===0 ? 'none' : 'block' }}> 
+				<div className="footer" style={{ display: this.state.todos.length===0 ? 'none' : 'block' }}> 
 					<Footer leftItems={this.countLeftItems} tabClick={this.clickOnTab} anyAreChecked={this.checkIfAnyAreChecked} completedClick={this.clearCompleted}/>
 				</div>
 			</div>
