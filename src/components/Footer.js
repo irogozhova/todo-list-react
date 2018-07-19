@@ -3,6 +3,7 @@ import React from 'react';
 const Footer = (props) => {
 
     return (
+
         <div>
             <span className="count-active">
                 <strong id="active">{props.leftItems()} </strong> 
@@ -13,7 +14,7 @@ const Footer = (props) => {
                 <li><a id="tab-active" className="tablink" onClick={props.tabClick}>Active</a></li>
                 <li><a id="tab-completed" className="tablink" onClick={props.tabClick}>Completed</a></li>
             </ul>
-            <button className="clear-completed">Сlear сompleted</button>
+            <button className="clear-completed" style={{ display: props.anyAreChecked() ? 'block' : 'none' }} onClick={props.completedClick}>Сlear сompleted</button>
         </div>
     );
 }

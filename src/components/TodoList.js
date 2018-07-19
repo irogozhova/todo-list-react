@@ -16,28 +16,24 @@ class TodoList extends React.Component {
 	}
 
 	componentWillMount() {
-		console.log(this.state.currentTab);
-		console.log(this.state.todosView);
 		this.changeTabs();
 	}
 
 	changeTabs() {
-		console.log("changetabs launched")
-		const {currentTab, todos} = this.state;
+		console.log("!!!!");
+		const {currentTab} = this.state;
 		switch (currentTab) {
 			case 'tab-all':
-				this.setState({ todosView: todos })
-				
+				this.setState({ todosView: this.state.todos })
 				break;
 			case 'tab-active':
-				this.setState({ todosView: todos.filter(item => !item.isChecked)})
-				console.log("current is tab-active")
+				this.setState({ todosView: this.state.todos.filter(item => !item.isChecked)})
 				break;
 			case 'tab-completed':
-				this.setState({ todosView: todos.filter(item => item.isChecked)})
+				this.setState({ todosView: this.state.todos.filter(item => item.isChecked)})
 				break;
 			default:
-				throw 'Unknown tab name';
+				throw new Error('Unknown tab name');
 		}
 	}
 
@@ -50,6 +46,7 @@ class TodoList extends React.Component {
 		this.setState(
 			{ currentTab: e.target.id }
 		);
+		this.changeTabs();
 	}
 
 	updateStorage() {
@@ -113,9 +110,20 @@ class TodoList extends React.Component {
 		return temp.length
 	}
 
+	checkIfAnyAreChecked = () => {
+		return this.state.todos.some(item => item.isChecked)
+	}
+
+	clearCompleted = () => {
+		const temp = this.state.todos.filter(item => !item.isChecked)
+		this.setState(
+			{ todos: temp },
+			() => this.updateStorage()
+		);
+	}
+
 	render () {
-		//console.log(this.state.todosView)
-		var listItems = this.state.todosView.map((item, i) =>
+		var listItems = this.state.todos.map((item, i) =>
 			{
 				return (
 					<Item
@@ -139,8 +147,8 @@ class TodoList extends React.Component {
 				<ul className="body">
 					{listItems}
 				</ul>
-				<div className="footer">
-					<Footer leftItems={this.countLeftItems} tabClick={this.clickOnTab}/>
+				<div className="footer" style={{ display: listItems.length===0 ? 'none' : 'block' }}> 
+					<Footer leftItems={this.countLeftItems} tabClick={this.clickOnTab} anyAreChecked={this.checkIfAnyAreChecked} completedClick={this.clearCompleted}/>
 				</div>
 			</div>
 		)
