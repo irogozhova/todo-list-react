@@ -1,9 +1,15 @@
 import React from 'react';
+import uniqid from 'uniqid';
+import classnames from 'classnames';
+
 import ToggleAll from './ToggleAll';
 import TodoInput from './TodoInput';
 import Item from './Item'
 import Footer from './Footer'
-var uniqid = require('uniqid');
+
+const TABALL = 'tab-all';
+const TABACTIVE = 'tab-active';
+const TABCOMPLETED = 'tab-completed';
 
 class TodoList extends React.Component {
   constructor(props) {
@@ -11,18 +17,18 @@ class TodoList extends React.Component {
     var storageContents = JSON.parse(localStorage.getItem('todos'));
     this.state = {
       todos: (storageContents === null) ? [] : storageContents,
-      currentTab: 'tab-all'
+      currentTab: TABALL
     };
   }
 
   todosFilteredByTab() {
     const {currentTab} = this.state;
     switch (currentTab) {
-      case 'tab-all':
+      case TABALL:
         return this.state.todos
-      case 'tab-active':
+      case TABACTIVE:
         return this.state.todos.filter(item => !item.isChecked)
-      case 'tab-completed':
+      case TABCOMPLETED:
         return this.state.todos.filter(item => item.isChecked)
       default:
         throw new Error('Unknown tab name');
