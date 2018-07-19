@@ -36,11 +36,6 @@ class TodoList extends React.Component {
   }
 
   clickOnTab = (e) => {
-    const tabs = document.getElementsByClassName("tablink");
-    for (var i=0; i < tabs.length; i++) {
-      tabs[i].classList.remove('selected');
-    }
-    e.target.classList.add('selected');
     this.setState(
       { currentTab: e.target.id }
     );
@@ -153,6 +148,7 @@ class TodoList extends React.Component {
             tabClick={this.clickOnTab} 
             anyAreChecked={this.checkIfAnyAreChecked} 
             completedClick={this.clearCompleted}
+            selectedId = {this.state.currentTab}
           />
         </div>
       </div>

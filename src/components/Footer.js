@@ -1,16 +1,27 @@
 import React from 'react';
+import classnames from 'classnames';
 
 function Footer(props) {
   return (
     <div>
       <span className="count-active">
         <strong id="active">{props.leftItems()} </strong> 
-        <span id="item-text">{(props.leftItems() === 1) ? 'item' : 'items'}</span> left
+        <span id="item-text">{(props.leftItems() === 1) ? 'item' : 'items'}</span> 
+        left
       </span>
       <ul className="filters">
-        <li><a id="tab-all" className="tablink selected" onClick={props.tabClick}>All</a></li>
-        <li><a id="tab-active" className="tablink" onClick={props.tabClick}>Active</a></li>
-        <li><a id="tab-completed" className="tablink" onClick={props.tabClick}>Completed</a></li>
+        {
+          [{id: 'tab-all', name: 'All'}, 
+          {id: 'tab-active', name: 'Active'}, 
+          {id: 'tab-completed', name: 'Completed'}].map(pair =>
+            <li key={pair.id}>
+              <a id={pair.id} 
+                className={classnames('tablink', { selected: props.selectedId === pair.id })} 
+                onClick={props.tabClick}>{pair.name}
+              </a>
+            </li>
+          )
+        }
       </ul>
       <button className="clear-completed" style={{ display: props.anyAreChecked() ? 'block' : 'none' }} onClick={props.completedClick}>Сlear сompleted</button>
     </div>
