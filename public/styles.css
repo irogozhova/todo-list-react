@@ -151,7 +151,7 @@ label {
     display: block;
 }
 
-.footer {
+.footer-container {
 	color: #777;
     padding: 10px 15px;
     height: 20px;
@@ -164,7 +164,7 @@ label {
 	font-size: inherit;
 }
 
-.footer .filters {
+.filters {
     margin: 0;
     padding: 0;
     list-style: none;
@@ -174,13 +174,13 @@ label {
     font-size: 15px;
 }
 
-.footer .filters li {
+.filters li {
     display: inline;
     font-size: 15px;
     border-bottom: none;
 }
 
-.footer .filters li a {
+.filters li a {
 	color: inherit;
     margin: 3px;
     padding: 3px 7px;
@@ -190,7 +190,7 @@ label {
     cursor: pointer;
 }
 
-.footer .filters li a:hover {
+.filters li a:hover {
 	border-color: rgba(175, 47, 47, 0.1);
 }
 

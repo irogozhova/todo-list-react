@@ -142,7 +142,7 @@ class TodoList extends React.Component {
         <ul className="body">
           {listItems}
         </ul>
-        <div className="footer" style={{ display: this.state.todos.length===0 ? 'none' : 'block' }}> 
+        <div className="footer-container" style={{ display: this.state.todos.length===0 ? 'none' : 'block' }}> 
           <Footer 
             leftItems={this.countLeftItems} 
             tabClick={this.clickOnTab} 
