@@ -16,20 +16,20 @@ class TodoList extends React.Component {
     super(props);
     var storageContents = JSON.parse(localStorage.getItem('todos'));
     this.state = {
-      todos: (storageContents === null) ? [] : storageContents,
+      todos: storageContents || [], //shorthand for empty of undefined
       currentTab: TABALL
     };
   }
 
   todosFilteredByTab() {
-    const {currentTab} = this.state;
+    const {currentTab, todos} = this.state;
     switch (currentTab) {
       case TABALL:
-        return this.state.todos
+        return todos
       case TABACTIVE:
-        return this.state.todos.filter(item => !item.isChecked)
+        return todos.filter(item => !item.isChecked)
       case TABCOMPLETED:
-        return this.state.todos.filter(item => item.isChecked)
+        return todos.filter(item => item.isChecked)
       default:
         throw new Error('Unknown tab name');
     }
