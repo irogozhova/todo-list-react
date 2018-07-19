@@ -4,12 +4,12 @@ import classnames from 'classnames';
 function Footer(props) {
   return (
     <div>
-      <span className="count-active">
-        <strong id="active">{props.leftItems()} </strong> 
-        <span id="item-text">{(props.leftItems() === 1) ? 'item' : 'items'}</span> 
+      <span className='count-active'>
+        <strong id='active'>{props.leftItems()} </strong> 
+        <span id='item-text'>{(props.leftItems() === 1) ? 'item' : 'items'}</span> 
         {' '} left
       </span>
-      <ul className="filters">
+      <ul className='filters'>
         {
           [{id: 'tab-all', name: 'All'}, 
           {id: 'tab-active', name: 'Active'}, 
@@ -23,7 +23,11 @@ function Footer(props) {
           )
         }
       </ul>
-      <button className="clear-completed" style={{ display: props.anyAreChecked() ? 'block' : 'none' }} onClick={props.completedClick}>Сlear сompleted</button>
+      <button 
+        className={classnames('clear-completed', { hidden: props.anyAreChecked()===false })} 
+        onClick={props.completedClick}>
+        Сlear сompleted
+      </button>
     </div>
   );
 }

@@ -199,7 +199,6 @@ label {
 }
 
 .clear-completed {
-    display: none;
 	float: right;
     line-height: 22px;
     padding: 0;
@@ -224,4 +223,8 @@ label {
     height: 45%;
     padding: 15px 8px;
     font-size: 24px;
+}
+
+.hidden {
+    display: none;
 }
