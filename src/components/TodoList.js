@@ -13,10 +13,8 @@ class TodoList extends React.Component {
 		};
 	}
 
-<<<<<<< HEAD
-=======
 	componentWillMount() {
-		this.changeTabs();
+		//this.changeTabs();
 	}
 
 	changeTabs() {
@@ -49,7 +47,6 @@ class TodoList extends React.Component {
 		this.changeTabs();
 	}
 
->>>>>>> testtabs
 	updateStorage() {
 		localStorage.setItem('todos', JSON.stringify(this.state.todos));
 	}
@@ -148,13 +145,8 @@ class TodoList extends React.Component {
 				<ul className="body">
 					{listItems}
 				</ul>
-<<<<<<< HEAD
-				<div className="footer">
-					<Footer leftItems={this.countLeftItems}/>
-=======
 				<div className="footer" style={{ display: listItems.length===0 ? 'none' : 'block' }}> 
 					<Footer leftItems={this.countLeftItems} tabClick={this.clickOnTab} anyAreChecked={this.checkIfAnyAreChecked} completedClick={this.clearCompleted}/>
->>>>>>> testtabs
 				</div>
 			</div>
 		)
