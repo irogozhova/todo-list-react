@@ -13,6 +13,43 @@ class TodoList extends React.Component {
 		};
 	}
 
+<<<<<<< HEAD
+=======
+	componentWillMount() {
+		this.changeTabs();
+	}
+
+	changeTabs() {
+		console.log("!!!!");
+		const {currentTab} = this.state;
+		switch (currentTab) {
+			case 'tab-all':
+				this.setState({ todosView: this.state.todos })
+				break;
+			case 'tab-active':
+				this.setState({ todosView: this.state.todos.filter(item => !item.isChecked)})
+				break;
+			case 'tab-completed':
+				this.setState({ todosView: this.state.todos.filter(item => item.isChecked)})
+				break;
+			default:
+				throw new Error('Unknown tab name');
+		}
+	}
+
+	clickOnTab = (e) => {
+		const tabs = document.getElementsByClassName("tablink");
+		for (var i=0; i < tabs.length; i++) {
+			tabs[i].classList.remove('selected');
+		}
+		e.target.classList.add('selected');
+		this.setState(
+			{ currentTab: e.target.id }
+		);
+		this.changeTabs();
+	}
+
+>>>>>>> testtabs
 	updateStorage() {
 		localStorage.setItem('todos', JSON.stringify(this.state.todos));
 	}
@@ -74,6 +111,18 @@ class TodoList extends React.Component {
 		return temp.length
 	}
 
+	checkIfAnyAreChecked = () => {
+		return this.state.todos.some(item => item.isChecked)
+	}
+
+	clearCompleted = () => {
+		const temp = this.state.todos.filter(item => !item.isChecked)
+		this.setState(
+			{ todos: temp },
+			() => this.updateStorage()
+		);
+	}
+
 	render () {
 		var listItems = this.state.todos.map((item, i) =>
 			{
@@ -99,8 +148,13 @@ class TodoList extends React.Component {
 				<ul className="body">
 					{listItems}
 				</ul>
+<<<<<<< HEAD
 				<div className="footer">
 					<Footer leftItems={this.countLeftItems}/>
+=======
+				<div className="footer" style={{ display: listItems.length===0 ? 'none' : 'block' }}> 
+					<Footer leftItems={this.countLeftItems} tabClick={this.clickOnTab} anyAreChecked={this.checkIfAnyAreChecked} completedClick={this.clearCompleted}/>
+>>>>>>> testtabs
 				</div>
 			</div>
 		)
