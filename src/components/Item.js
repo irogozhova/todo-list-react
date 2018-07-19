@@ -11,9 +11,14 @@ class Item extends React.Component {
   }
 
   render() {
+    const { id, isChecked, onCheck, onRemove } = this.props;
     return (
       <li className={this.props.isChecked ? 'completed' : ''}>
-        <input type="checkbox" className="toggle" onClick={this.handleCheckbox}/>
+        <input 
+          type="checkbox"
+          className="toggle"
+          onClick={() => onCheck(id, isChecked)}/>
+
         <label>{this.props.label}</label>
         <button className="destroy" onClick={this.handleRemove}></button>
       </li>

@@ -1,40 +1,41 @@
 import React from 'react';
+import uniqid from 'uniqid';
+import classnames from 'classnames';
+
 import ToggleAll from './ToggleAll';
 import TodoInput from './TodoInput';
-import Item from './Item'
-import Footer from './Footer'
-var uniqid = require('uniqid');
+import Item from './Item';
+import Footer from './Footer';
+
+const TABALL = 'tab-all';
+const TABACTIVE = 'tab-active';
+const TABCOMPLETED = 'tab-completed';
 
 class TodoList extends React.Component {
   constructor(props) {
     super(props);
     var storageContents = JSON.parse(localStorage.getItem('todos'));
     this.state = {
-      todos: (storageContents === null) ? [] : storageContents,
-      currentTab: 'tab-all'
+      todos: storageContents || [], //checks if empty or undefined
+      currentTab: TABALL
     };
   }
 
   todosFilteredByTab() {
-    const {currentTab} = this.state;
+    const {currentTab, todos} = this.state;
     switch (currentTab) {
-      case 'tab-all':
-        return this.state.todos
-      case 'tab-active':
-        return this.state.todos.filter(item => !item.isChecked)
-      case 'tab-completed':
-        return this.state.todos.filter(item => item.isChecked)
+      case TABALL:
+        return todos
+      case TABACTIVE:
+        return todos.filter(item => !item.isChecked)
+      case TABCOMPLETED:
+        return todos.filter(item => item.isChecked)
       default:
         throw new Error('Unknown tab name');
     }
   }
 
   clickOnTab = (e) => {
-    const tabs = document.getElementsByClassName("tablink");
-    for (var i=0; i < tabs.length; i++) {
-      tabs[i].classList.remove('selected');
-    }
-    e.target.classList.add('selected');
     this.setState(
       { currentTab: e.target.id }
     );
@@ -44,94 +45,84 @@ class TodoList extends React.Component {
     localStorage.setItem('todos', JSON.stringify(this.state.todos));
   }
   
-  handleEnterPress = (e) => {
-    if (e.key === 'Enter' && e.target.value !== '') {
-      let newAddedObject = {id: uniqid(), label: e.target.value, isChecked: false}
-      this.setState(
-        { todos: this.state.todos.concat([newAddedObject]) },
-        () => this.updateStorage()
-      );
-      e.target.value = "";
+  handleKeyPress = (e) => {
+    if (e.key === 'Enter' && e.target.value) {
+      this.addTodo(e.target.value);
     }
   }
 
-  handleRemoveButton = (id) => {
-    const todos = [...this.state.todos]; //ES6 spread function
-    const removeIndex = todos.findIndex(obj => obj.id === id)
-    todos.splice(removeIndex, 1);
-    
+  setAndSaveState = (state) => {
     this.setState(
-      { todos: todos }, 
+      state,
       () => this.updateStorage()
     );
   }
 
-  handleCheck = (id, isChecked) => {
-    const todos = this.state.todos.map((item) => {
-      if (item.id === id) {
-        return { id: item.id, label: item.label, isChecked: isChecked };
-      }
-      return item;
+  addTodo = (label, isChecked = false) => { //false - default value in case no value was passed
+    const id = uniqid();
+    setAndSaveState({
+      todos: todos.concat({ id, label, isChecked }),
+    });
+  }
+
+  handleRemoveButton = id =>
+    setAndSaveState({
+      todos: todos.filter(({id: todoId}) => todoId !== id)
     });
 
-    this.setState(
-      { todos: todos },
-      () => this.updateStorage()
-    );
+  handleCheck = (id, isChecked) => {
+    setAndSaveState({
+      todos: todos.map((todo) => {
+        const {id: todoId, isChecked, ...rest} = todo;
+        if (id === todoId) {
+          return { ...rest, isChecked: !isChecked };
+        }
+
+        return todo;
+      }),
+    })
   }
 
   toggleAll = () => {
-    const arrayOfUnchecked = this.state.todos.filter(item => !item.isChecked)
-    const temp = this.state.todos.map((item) => {
-      if (arrayOfUnchecked.length === 0) {
-        return { id: item.id, label: item.label , isChecked: !item.isChecked } 
-      }
-      else {
-        return item.isChecked ? item : {id: item.id, label: item.label , isChecked: !item.isChecked} 
-      }
-    });
-
-    this.setState(
-      { todos: temp },
-      () => this.updateStorage()
-    );
+    const isAnyChecked = this.state.todos.some(item => item.isChecked);
+    if (isAnyChecked) {
+      setAndSaveState({
+        todos: todos.map(todo => todo.isChecked = true),
+      })
+    } else {
+      setAndSaveState({
+        todos: todos.map(todo => todo.isChecked = false),
+      })
+    }
   }
 
-  countLeftItems = () => {
-    const temp = this.state.todos.filter(item => !item.isChecked)
-    return temp.length
-  }
 
-  checkIfAnyAreChecked = () => {
-    return this.state.todos.some(item => item.isChecked)
-  }
+  countLeftItems = () =>
+    this.state.todos.filter(item => !item.isChecked).length;
 
-  clearCompleted = () => {
-    const temp = this.state.todos.filter(item => !item.isChecked)
-    this.setState(
-      { todos: temp },
-      () => this.updateStorage()
-    );
-  }
+  checkIfAnyAreChecked = () =>
+    this.state.todos.some(item => item.isChecked)
+
+  clearCompleted = () =>
+    setAndSaveState({
+      todos: this.state.todos.filter(item => !item.isChecked)
+    })
+
+  renderItems = () =>
+   this.todosFilteredByTab().map((item, i) => (
+      <Item
+        key={item.id} 
+        id={item.id}
+        index={i}
+        label={item.label}
+        isChecked={item.isChecked}
+        onCheck={this.handleCheck}
+        onRemove={this.handleRemoveButton}
+      />
+    )
+  )
 
   render () {
-    
-    var listItems = this.todosFilteredByTab().map((item, i) =>
-      {
-        return (
-          <Item
-            key={item.id} 
-            id={item.id}
-            index={i}
-            label={item.label}
-            isChecked={item.isChecked}
-            onCheck={this.handleCheck}
-            onRemove={this.handleRemoveButton}
-          />
-        )
-      }
-    );
-      
     return (
       <div>
         <div className="header">
@@ -139,9 +130,9 @@ class TodoList extends React.Component {
           <TodoInput onKeyPress={this.handleEnterPress} />
         </div>
         <ul className="body">
-          {listItems}
+          {renderItems()}
         </ul>
-        <div className="footer" style={{ display: this.state.todos.length===0 ? 'none' : 'block' }}> 
+        <div className={classnames('footer', { hidden: this.state.todos.length })}> 
           <Footer 
             leftItems={this.countLeftItems} 
             tabClick={this.clickOnTab} 
