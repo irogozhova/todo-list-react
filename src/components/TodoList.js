@@ -122,22 +122,16 @@ class TodoList extends React.Component {
   //   }
   // }
 
-  countLeftItems = () => {
-    const temp = this.state.todos.filter(item => !item.isChecked)
-    return temp.length
-  }
+  countLeftItems = () => 
+    this.state.todos.filter(item => !item.isChecked).length
+  
+  checkIfAnyAreChecked = () => 
+    this.state.todos.some(item => item.isChecked)
 
-  checkIfAnyAreChecked = () => {
-    return this.state.todos.some(item => item.isChecked)
-  }
-
-  clearCompleted = () => {
-    const temp = this.state.todos.filter(item => !item.isChecked)
-    this.setState(
-      { todos: temp },
-      () => this.updateStorage()
-    );
-  }
+  clearCompleted = () =>
+    this.setAndSaveState({
+      todos: this.state.todos.filter(item => !item.isChecked)
+    })
 
   clickOnTab = (e) => {
     this.setState(
@@ -172,7 +166,7 @@ class TodoList extends React.Component {
         <ul className="body">
           {listItems}
         </ul>
-        <div className="footer-container" style={{ display: this.state.todos.length===0 ? 'none' : 'block' }}> 
+        <div className={classnames('footer-container', { hidden: this.state.todos.length===0 })}> 
           <Footer 
             leftItems={this.countLeftItems} 
             tabClick={this.clickOnTab} 
