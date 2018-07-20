@@ -16,7 +16,7 @@ class TodoList extends React.Component {
     super(props);
     var storageContents = JSON.parse(localStorage.getItem('todos'));
     this.state = {
-      todos: storageContents || [], //shorthand for empty of undefined
+      todos: storageContents || [], 
       currentTab: TABALL
     };
   }
@@ -35,24 +35,27 @@ class TodoList extends React.Component {
     }
   }
 
-  clickOnTab = (e) => {
-    this.setState(
-      { currentTab: e.target.id }
-    );
-  }
-
   updateStorage() {
     localStorage.setItem('todos', JSON.stringify(this.state.todos));
   }
-  
-  handleEnterPress = (e) => {
-    if (e.key === 'Enter' && e.target.value !== '') {
-      let newAddedObject = {id: uniqid(), label: e.target.value, isChecked: false}
-      this.setState(
-        { todos: this.state.todos.concat([newAddedObject]) },
-        () => this.updateStorage()
-      );
-      e.target.value = "";
+
+  setAndSaveState = (state) => {
+    this.setState(
+      state,
+      () => this.updateStorage()
+    );
+  }
+
+  addTodo = (label, isChecked = false) => { //false - default value in case no value was passed
+    const id = uniqid();
+    this.setAndSaveState({
+      todos: this.state.todos.concat({ id, label, isChecked }),
+    });
+  }
+
+  handleKeypress = (e) => {
+    if (e.key === 'Enter' && e.target.value) {
+      this.addTodo(e.target.value);
     }
   }
 
@@ -115,6 +118,12 @@ class TodoList extends React.Component {
     );
   }
 
+  clickOnTab = (e) => {
+    this.setState(
+      { currentTab: e.target.id }
+    );
+  }
+
   render () {
     
     var listItems = this.todosFilteredByTab().map((item, i) =>
@@ -137,7 +146,7 @@ class TodoList extends React.Component {
       <div>
         <div className="header">
           <ToggleAll onClick={this.toggleAll}/>
-          <TodoInput onKeyPress={this.handleEnterPress} />
+          <TodoInput onKeyPress={this.handleKeypress} />
         </div>
         <ul className="body">
           {listItems}
