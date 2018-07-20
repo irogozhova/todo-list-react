@@ -1,12 +1,18 @@
 import React from 'react';
 import classnames from 'classnames';
 
-function Footer(props) {
+function Footer({
+  leftItems,
+  tabClick,
+  anyAreChecked,
+  completedClick,
+  selectedId
+}) {
   return (
     <div>
       <span className='count-active'>
-        <strong id='active'>{props.leftItems()} </strong> 
-        <span id='item-text'>{(props.leftItems() === 1) ? 'item' : 'items'}</span> 
+        <strong id='active'>{leftItems()} </strong> 
+        <span id='item-text'>{leftItems() === 1 ? 'item' : 'items'}</span> 
         {' '} left
       </span>
       <ul className='filters'>
@@ -16,8 +22,8 @@ function Footer(props) {
           {id: 'tab-completed', name: 'Completed'}].map(pair =>
             <li key={pair.id}>
               <a id={pair.id} 
-                className={classnames('tablink', { selected: props.selectedId === pair.id })} 
-                onClick={props.tabClick}>
+                className={classnames('tablink', { selected: selectedId === pair.id })} 
+                onClick={tabClick}>
                 {pair.name}
               </a>
             </li>
@@ -25,8 +31,8 @@ function Footer(props) {
         }
       </ul>
       <button 
-        className={classnames('clear-completed', { hidden: props.anyAreChecked()===false })} 
-        onClick={props.completedClick}>
+        className={classnames('clear-completed', { hidden: anyAreChecked()===false })} 
+        onClick={completedClick}>
         Сlear сompleted
       </button>
     </div>
