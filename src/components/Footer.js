@@ -17,7 +17,8 @@ function Footer(props) {
             <li key={pair.id}>
               <a id={pair.id} 
                 className={classnames('tablink', { selected: props.selectedId === pair.id })} 
-                onClick={props.tabClick}>{pair.name}
+                onClick={props.tabClick}>
+                {pair.name}
               </a>
             </li>
           )
