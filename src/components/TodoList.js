@@ -92,21 +92,35 @@ class TodoList extends React.Component {
   // }
 
   toggleAll = () => {
-    const arrayOfUnchecked = this.state.todos.filter(item => !item.isChecked)
-    const temp = this.state.todos.map((item) => {
-      if (arrayOfUnchecked.length === 0) {
-        return { id: item.id, label: item.label , isChecked: !item.isChecked } 
-      }
-      else {
-        return item.isChecked ? item : {id: item.id, label: item.label , isChecked: !item.isChecked} 
-      }
-    });
-
-    this.setState(
-      { todos: temp },
-      () => this.updateStorage()
-    );
+    const everyIsChecked = this.state.todos.every(item => item.isChecked);
+    if (everyIsChecked) {
+      this.setAndSaveState({
+        todos: this.state.todos.map((item) => {
+          return { id: item.id, label: item.label, isChecked: !item.isChecked }; //can I use ...rest here?
+        })
+      })
+    }
+    else {
+      this.setAndSaveState({
+        todos: this.state.todos.map((item) => {
+          return item.isChecked ? item : {id: item.id, label: item.label , isChecked: !item.isChecked}
+        })
+      })
+    }
   }
+
+  // toggleAll = () => {
+  //   const isAnyChecked = this.state.todos.some(item => item.isChecked);
+  //   if (isAnyChecked) {
+  //     setAndSaveState({
+  //       todos: todos.map(todo => todo.isChecked = true), //this stuff doesn't return other object keys
+  //     })
+  //   } else {
+  //     setAndSaveState({
+  //       todos: todos.map(todo => todo.isChecked = false),
+  //     })
+  //   }
+  // }
 
   countLeftItems = () => {
     const temp = this.state.todos.filter(item => !item.isChecked)
