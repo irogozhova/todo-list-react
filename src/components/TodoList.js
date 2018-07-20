@@ -56,19 +56,14 @@ class TodoList extends React.Component {
   handleKeypress = (e) => {
     if (e.key === 'Enter' && e.target.value) {
       this.addTodo(e.target.value);
+      e.target.value = '';
     }
   }
 
-  handleRemoveButton = (id) => {
-    const todos = [...this.state.todos]; //ES6 spread function
-    const removeIndex = todos.findIndex(obj => obj.id === id)
-    todos.splice(removeIndex, 1);
-    
-    this.setState(
-      { todos: todos }, 
-      () => this.updateStorage()
-    );
-  }
+  handleRemoveButton = id =>
+    this.setAndSaveState({
+      todos: this.state.todos.filter(({id: todoId}) => todoId !== id) //what is 'id: todoId'? how does filter work?
+    });
 
   handleCheck = (id, isChecked) => {
     const todos = this.state.todos.map((item) => {
