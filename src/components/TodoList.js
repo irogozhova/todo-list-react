@@ -68,16 +68,28 @@ class TodoList extends React.Component {
   handleCheck = (id, isChecked) => {
     const todos = this.state.todos.map((item) => {
       if (item.id === id) {
-        return { id: item.id, label: item.label, isChecked: isChecked };
+        return { id: item.id, label: item.label, isChecked: !isChecked };
       }
       return item;
     });
 
-    this.setState(
-      { todos: todos },
-      () => this.updateStorage()
-    );
+    this.setAndSaveState({
+      todos: todos,
+    });
   }
+
+  // handleCheck = (id, isChecked) => {
+  //   this.setAndSaveState({
+  //     todos: this.state.todos.map((todo) => {
+  //       const {id: todoId, isChecked, ...rest} = todo; //what are we doing here?
+  //       if (id === todoId) {
+  //         return { ...rest, isChecked: !isChecked };
+  //       }
+
+  //       return todo;
+  //     }),
+  //   })
+  // }
 
   toggleAll = () => {
     const arrayOfUnchecked = this.state.todos.filter(item => !item.isChecked)
