@@ -78,19 +78,6 @@ class TodoList extends React.Component {
     });
   }
 
-  // handleCheck = (id, isChecked) => {
-  //   this.setAndSaveState({
-  //     todos: this.state.todos.map((todo) => {
-  //       const {id: todoId, isChecked, ...rest} = todo; //what are we doing here?
-  //       if (id === todoId) {
-  //         return { ...rest, isChecked: !isChecked };
-  //       }
-
-  //       return todo;
-  //     }),
-  //   })
-  // }
-
   toggleAll = () => {
     const everyIsChecked = this.state.todos.every(item => item.isChecked);
     if (everyIsChecked) {
@@ -108,19 +95,6 @@ class TodoList extends React.Component {
       })
     }
   }
-
-  // toggleAll = () => {
-  //   const isAnyChecked = this.state.todos.some(item => item.isChecked);
-  //   if (isAnyChecked) {
-  //     setAndSaveState({
-  //       todos: todos.map(todo => todo.isChecked = true), //this stuff doesn't return other object keys
-  //     })
-  //   } else {
-  //     setAndSaveState({
-  //       todos: todos.map(todo => todo.isChecked = false),
-  //     })
-  //   }
-  // }
 
   countLeftItems = () => 
     this.state.todos.filter(item => !item.isChecked).length
