@@ -1,7 +1,63 @@
-import React from 'react';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import uniqid from 'uniqid';
 
-function TodoInput({onKeyPress}) {
-  return <input className="new-todo" placeholder="What needs to be done?" onKeyPress={onKeyPress}></input>;
+import { addTodo } from "../actions/index";
+
+const mapDispatchToProps = dispatch => {
+  return {
+    addTodo: todo => dispatch(addTodo(todo))
+  };
+};
+
+class ConnectedInput extends Component {
+
+  constructor() {
+    super();
+
+    this.state = {
+      label: ''
+    };
+  }
+
+  handleChange = (event) => {
+    this.setState({
+      label: event.target.value
+    });
+  }
+
+  handleKeyPress = (event) => {
+    if (event.key !== 'Enter') {
+      return false;
+    }
+    const id = uniqid();
+    this.props.addTodo({ //this line passes what we wrote as 'payload' in action
+      id,  
+      label: this.state.label,
+      isChecked: false
+    });
+    this.setState({label: ''});
+  }
+
+  render() {
+
+    return (
+      <div className="header">
+        <input
+            type="text"
+            className="new-todo"
+            placeholder="What needs to be done?"
+            onKeyPress={this.handleKeyPress}
+            onChange={this.handleChange}
+            value={this.state.label}
+          />
+      </div>
+    );
+  }
 }
 
+const TodoInput = connect(null, mapDispatchToProps)(ConnectedInput);
+
 export default TodoInput;
+
+

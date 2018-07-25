@@ -1,12 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import TodoList from './components/TodoList';
 import { Provider } from "react-redux";
+
+import TodoList from './components/TodoList';
 import store from "./store/index";
-import { addArticle } from "./actions/index";
+import { addTodo } from "./actions/index";
 
 window.store = store;
-window.addArticle = addArticle;
+window.addTodo = addTodo;
 
 class App extends React.Component {
   render () {

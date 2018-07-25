@@ -1,3 +1,6 @@
-import { ADD_ARTICLE } from "../constants/action-types";
+import { ADD_TODO } from "../constants/action-types";
 
-export const addArticle = article => ({ type: ADD_ARTICLE, payload: article });
+export const addTodo = todo => ({ //actions only describe what happened
+  type: ADD_TODO, 
+  payload: todo
+});

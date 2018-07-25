@@ -3,18 +3,18 @@ import React from 'react';
 class Item extends React.Component {
   
   render() {
-    const { id, label, isChecked, onCheck, onRemove } = this.props;
+    const { id, label, isChecked } = this.props;
+    
     return (
-      <li className={isChecked ? 'completed' : ''}>
+      <li id={id}>
         <input 
           type="checkbox" 
           className="toggle" 
-          onClick={() => onCheck(id, isChecked)}
         />
         <label>{label}</label>
         <button 
           className="destroy" 
-          onClick={() => onRemove(id)}>
+        >
         </button>
       </li>
     );
