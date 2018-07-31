@@ -9,10 +9,6 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-// function mapDispatchToProps(dispatch) {
-//   return bindActionCreators({ removeTodo: removeTodo }, dispatch) 
-// }
-
 class ConnectedItem extends React.Component {
 
   render() {
@@ -27,7 +23,7 @@ class ConnectedItem extends React.Component {
         <label>{label}</label>
         <button 
           className="destroy"
-          onClick={this.props.removeTodo} 
+          onClick={() => this.props.removeTodo(id)} 
         >
         </button>
       </li>

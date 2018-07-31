@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import TodoItem from "./TodoItem"
 
-const mapStateToProps = state => { //get 'state' props which are stored in reducer
+const mapStateToProps = state => { 
   return { todos: state.todos };
 };
 
