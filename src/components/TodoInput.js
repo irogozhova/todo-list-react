@@ -31,7 +31,7 @@ class ConnectedInput extends Component {
       return false;
     }
     const id = uniqid();
-    this.props.addTodo({ //this line passes what we wrote as 'payload' in action
+    this.props.addTodo({ 
       id,  
       label: this.state.label,
       isChecked: false
@@ -42,16 +42,14 @@ class ConnectedInput extends Component {
   render() {
 
     return (
-      <div className="header">
-        <input
-            type="text"
-            className="new-todo"
-            placeholder="What needs to be done?"
-            onKeyPress={this.handleKeyPress}
-            onChange={this.handleChange}
-            value={this.state.label}
-          />
-      </div>
+      <input
+        type="text"
+        className="new-todo"
+        placeholder="What needs to be done?"
+        onKeyPress={this.handleKeyPress}
+        onChange={this.handleChange}
+        value={this.state.label}
+      />
     );
   }
 }
