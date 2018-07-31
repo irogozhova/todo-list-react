@@ -22,7 +22,6 @@ class ConnectedItem extends React.Component {
           type="checkbox" 
           className="toggle" 
           onClick={() => this.props.checkTodo(id, isChecked)}
-          //onClick={() => console.log(isChecked)}
         />
         <label>{label}</label>
         <button 

@@ -14,7 +14,18 @@ const todoReducer = (state = initialState, action) => {
     case REMOVE_TODO:
       return { ...state, todos: state.todos.filter(todo => todo.id !== action.id) };
     case CHECK_TODO:
-      console.log(action.id); 
+      return { ...state, todos: state.todos.map(todo => {
+        // const {id, isChecked, ...rest} = todo; //const id = todo.id, const isChecked = todo.isChecked
+        const {id, isChecked} = todo;
+        if (id === action.id) {
+          //return { ...rest, isChecked: !isChecked };
+          return {
+            ...todo,
+            isChecked: !isChecked
+          }
+        }
+        return todo
+      }) };
     default:
       return state;
   }
