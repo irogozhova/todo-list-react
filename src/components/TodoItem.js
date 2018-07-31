@@ -1,7 +1,20 @@
 import React from 'react';
+import { connect } from "react-redux";
 
-class Item extends React.Component {
-  
+import { removeTodo } from "../actions/index";
+
+const mapDispatchToProps = dispatch => {
+  return {
+    removeTodo: todo => dispatch(removeTodo(todo))
+  };
+};
+
+// function mapDispatchToProps(dispatch) {
+//   return bindActionCreators({ removeTodo: removeTodo }, dispatch) 
+// }
+
+class ConnectedItem extends React.Component {
+
   render() {
     const { id, label, isChecked } = this.props;
     
@@ -13,12 +26,15 @@ class Item extends React.Component {
         />
         <label>{label}</label>
         <button 
-          className="destroy" 
+          className="destroy"
+          onClick={this.props.removeTodo} 
         >
         </button>
       </li>
     );
   }
 }
+
+const Item = connect(null, mapDispatchToProps)(ConnectedItem);
 
 export default Item;

@@ -5,9 +5,7 @@ class ToggleAll extends Component {
   render() {
 
     return (
-      <input
-        type="checkbox"
-      />
+      <div className="toggle-all"></div>
     );
   }
 }
