@@ -1,6 +1,7 @@
 import { ADD_TODO } from "../constants/action-types";
 import { REMOVE_TODO } from "../constants/action-types";
 import { CHECK_TODO } from "../constants/action-types";
+import { TOGGLE_ALL } from "../constants/action-types";
 
 const initialState = {
   todos: []
@@ -26,6 +27,8 @@ const todoReducer = (state = initialState, action) => {
         }
         return todo
       }) };
+    case TOGGLE_ALL:
+      console.log("pampam");
     default:
       return state;
   }
