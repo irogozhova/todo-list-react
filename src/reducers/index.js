@@ -28,7 +28,19 @@ const todoReducer = (state = initialState, action) => {
         return todo
       }) };
     case TOGGLE_ALL:
-      console.log("pampam");
+      const everyIsChecked = state.todos.every(todo => todo.isChecked);
+      return { ...state, todos: state.todos.map(todo => {
+        const {isChecked} = todo;
+        if (everyIsChecked) {
+          return {
+            ...todo,
+            isChecked: !isChecked
+          }
+        }
+        else {
+          return todo.isChecked ? todo : {...todo, isChecked: !isChecked}
+        }
+      }) };
     default:
       return state;
   }

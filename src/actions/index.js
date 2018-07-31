@@ -19,9 +19,8 @@ export const checkTodo = (id, isChecked) => ({
   isChecked: isChecked
 });
 
-export const toggleAll = (id, isChecked) => ({ 
+export const toggleAll = isChecked => ({ 
   type: TOGGLE_ALL, 
-  id: id,
   isChecked: isChecked
 });
 
