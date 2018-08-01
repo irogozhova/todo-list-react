@@ -1,26 +1,15 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
+import React from "react";
 
-const mapStateToProps = state => { 
-  return { todos: state.todos };
-};
+const CountActive = ({ numberOfActive }) => {
 
-class ConnectedCountActive extends Component { 
-  
-  render() {
-
-    const numberOfActive = this.props.todos.filter(todo => !todo.isChecked);
-
-    return (
-      <span className='count-active'>
-        <strong id='active'>{numberOfActive.length} </strong> 
-        <span id='item-text'>{numberOfActive.length === 1 ? 'item' : 'items'}</span> 
-        {' '} left
-      </span>
-    );
-  }
+  return (
+    <span className='count-active'>
+      <strong id='active'>{numberOfActive} </strong> 
+      <span id='item-text'>{numberOfActive === 1 ? 'item' : 'items'}</span> 
+      {' '} left
+    </span>
+  );
 }
 
-const CountActive = connect(mapStateToProps)(ConnectedCountActive);
-
 export default CountActive;
+
