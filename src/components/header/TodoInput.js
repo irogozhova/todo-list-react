@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import uniqid from 'uniqid';
 
-import { addTodo } from "../actions/index";
+import { addTodo } from "../../actions/index";
 
 const mapDispatchToProps = dispatch => {
   return {

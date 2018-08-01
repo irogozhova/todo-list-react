@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from 'redux';
 
-import { toggleAll } from "../actions/index";
+import { toggleAll } from "../../actions/index";
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({ toggleAll: toggleAll }, dispatch)

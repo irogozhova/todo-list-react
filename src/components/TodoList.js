@@ -1,9 +1,8 @@
 import React, { Component } from "react";
 
-import ToggleAll from './ToggleAll';
-import TodoInput from './TodoInput';
+import Header from './header/Header';
 import List from './List';
-import CountActive from './CountActive';
+import Footer from './footer/Footer';
 // import Tabs from './Tabs';
 // import ClearBtn from './ClearBtn';
 
@@ -13,16 +12,9 @@ class TodoList extends Component {
       
     return (
       <div>
-        <div className='header'>
-          <ToggleAll />
-          <TodoInput />
-        </div>
+        <Header />
         <List />
-        <div className='footer'>
-          <CountActive />
-          {/* <Tabs />
-          <ClearBtn /> */}
-        </div>
+        <Footer />
       </div>
     )
   } 
