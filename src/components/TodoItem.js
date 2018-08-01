@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from "react";
 import { connect } from "react-redux";
 
 import { removeTodo } from "../actions/index";
@@ -11,7 +11,7 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-class ConnectedItem extends React.Component {
+class ConnectedItem extends Component {
 
   render() {
     const { id, label, isChecked } = this.props;

@@ -20,8 +20,8 @@ class ConnectedFooter extends Component {
     return (
       <div className={classnames('footer', { hidden: this.props.todos.length===0 })}>
         <CountActive numberOfActive={numberOfActive}/>
-        {/* <Tabs />
-        <ClearBtn /> */}
+        <Tabs />
+        <ClearBtn />
       </div>
     )
   }

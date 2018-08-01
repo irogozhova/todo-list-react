@@ -1,4 +1,4 @@
-import { ADD_TODO, REMOVE_TODO, CHECK_TODO, TOGGLE_ALL } from "../constants/action-types";
+import { ADD_TODO, REMOVE_TODO, CHECK_TODO, TOGGLE_ALL, CLEAR_COMPLETED } from "../constants/action-types";
 
 const initialState = {
   todos: []
@@ -38,6 +38,8 @@ const todoReducer = (state = initialState, action) => {
           return todo.isChecked ? todo : {...todo, isChecked: !isChecked}
         }
       }) }; 
+    case CLEAR_COMPLETED:
+      return { ...state, todos: state.todos.filter(todo => !todo.isChecked) };
     default:
       return state;
   }
