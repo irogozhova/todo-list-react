@@ -16,12 +16,16 @@ class ConnectedFooter extends Component {
 
     const activeTodos = this.props.todos.filter(todo => !todo.isChecked);
     const numberOfActive = activeTodos.length;
+    
+    const checkIfAnyChecked = () => {
+      return this.props.todos.some(todo => todo.isChecked);
+    }
 
     return (
       <div className={classnames('footer', { hidden: this.props.todos.length===0 })}>
         <CountActive numberOfActive={numberOfActive}/>
         <Tabs />
-        <ClearBtn />
+        <ClearBtn anyAreChecked={checkIfAnyChecked()}/>
       </div>
     )
   }
