@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { Component } from "react";
 
 import ToggleAll from './ToggleAll';
 import TodoInput from './TodoInput';
 import List from './List';
+import CountActive from './CountActive';
+// import Tabs from './Tabs';
+// import ClearBtn from './ClearBtn';
 
-
-class TodoList extends React.Component {
+class TodoList extends Component {
 
   render () {
       
@@ -16,6 +18,11 @@ class TodoList extends React.Component {
           <TodoInput />
         </div>
         <List />
+        <div className='footer'>
+          <CountActive />
+          {/* <Tabs />
+          <ClearBtn /> */}
+        </div>
       </div>
     )
   } 
