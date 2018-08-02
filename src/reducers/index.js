@@ -1,4 +1,13 @@
-import { ADD_TODO, REMOVE_TODO, CHECK_TODO, TOGGLE_ALL, CLEAR_COMPLETED } from "../constants/action-types";
+import { 
+  ADD_TODO, 
+  REMOVE_TODO, 
+  CHECK_TODO, 
+  TOGGLE_ALL, 
+  CLEAR_COMPLETED,
+  SWITCH_TAB 
+} from "../constants/action-types";
+
+import { TABALL, TABACTIVE, TABCOMPLETED } from "../constants/tab-names";
 
 const initialState = {
   todos: []
@@ -40,6 +49,17 @@ const todoReducer = (state = initialState, action) => {
       }) }; 
     case CLEAR_COMPLETED:
       return { ...state, todos: state.todos.filter(todo => !todo.isChecked) };
+    case SWITCH_TAB:
+      switch (action.id) {
+        case TABALL:
+          return state
+        case TABACTIVE:
+          return { ...state, todos: state.todos.filter(todo => !todo.isChecked) }
+        case TABCOMPLETED:
+          return { ...state, todos: state.todos.filter(todo => todo.isChecked) }
+        default:
+          throw new Error('Unknown tab name');
+      }
     default:
       return state;
   }
