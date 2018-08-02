@@ -24,20 +24,19 @@ const ConnectedList = ({ todos, filter }) => {
   }
 
   const filterItems = () => {
-    if (filter === TABALL)
     switch (filter) {
       case TABALL:
         return todos
       case TABACTIVE:
-        return todo => !todo.isChecked
+        return todos.filter(item => !item.isChecked)
       case TABCOMPLETED:
-        return todo => todo.isChecked
+        return todos.filter(item => item.isChecked)
       default:
         throw new Error('Unknown tab name');
     }
   }
   
-  const todoItems = todos.filter(filterItems).map(createItems); 
+  const todoItems = filterItems().map(createItems); 
 
   return (
     <ul className="body">
