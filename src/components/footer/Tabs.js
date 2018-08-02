@@ -1,14 +1,14 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-//import { bindActionCreators } from 'redux';
+import { bindActionCreators } from 'redux';
 import classnames from 'classnames';
 
-//import { switchTab } from "../../actions/index";
+import { switchTab } from "../../actions/index";
 import { TABALL, TABACTIVE, TABCOMPLETED } from "../../constants/tab-names";
 
-// function mapDispatchToProps(dispatch) {
-//   return bindActionCreators({ switchTab: switchTab }, dispatch)
-// }
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ switchTab: switchTab }, dispatch)
+}
 
 const mapStateToProps = state => { 
   return { todos: state.todos };
@@ -23,17 +23,20 @@ class ConnectedTabs extends Component {
     };
   }
 
-    case SWITCH_TAB:
-      switch (action.id) {
-        case TABALL:
-          return todos
-        case TABACTIVE:
-          return { todos.filter(todo => !todo.isChecked) }
-        case TABCOMPLETED:
-          return { todos.filter(todo => todo.isChecked) }
-        default:
-          throw new Error('Unknown tab name');
-      }
+  todosFilteredByTab(currentTab) {
+    const { todos } = this.props;
+
+    switch (currentTab) {
+      case TABALL:
+        return todos
+      case TABACTIVE:
+        return todos.filter(todo => !todo.isChecked)
+      case TABCOMPLETED:
+        return todos.filter(todo => todo.isChecked)
+      default:
+        throw new Error('Unknown tab name');
+    }
+  }
 
   render () {
     
@@ -50,7 +53,8 @@ class ConnectedTabs extends Component {
         <a id={pair.id} 
           onClick={() => {
             this.setState({ currentTab: pair.id });
-            //this.props.switchTab(pair.id);
+            //console.log(this.todosFilteredByTab(pair.id));
+            this.props.switchTab(this.todosFilteredByTab(pair.id));
           }} 
           className={classnames('tablink', { selected: currentTab === pair.id })}
           >
@@ -68,7 +72,7 @@ class ConnectedTabs extends Component {
   }
 }
 
-//const Tabs = connect(null, mapDispatchToProps)(ConnectedTabs);
-const Tabs = connect(mapStateToProps)(ConnectedTabs);
+const Tabs = connect(mapStateToProps, mapDispatchToProps)(ConnectedTabs);
+//const Tabs = connect(mapStateToProps)(ConnectedTabs);
 
 export default Tabs;

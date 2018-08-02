@@ -4,6 +4,7 @@ import {
   CHECK_TODO, 
   TOGGLE_ALL, 
   CLEAR_COMPLETED,
+  SWITCH_TAB
 } from "../constants/action-types";
 
 //import { TABALL, TABACTIVE, TABCOMPLETED } from "../constants/tab-names";
@@ -59,6 +60,8 @@ const todoReducer = (state = initialState, action) => {
     //     default:
     //       throw new Error('Unknown tab name');
     //   }
+    case SWITCH_TAB:
+      return action.filteredState;
     default:
       return state;
   }

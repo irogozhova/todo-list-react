@@ -33,9 +33,9 @@ export const clearCompleted = isChecked => ({
   isChecked: isChecked
 });
 
-export const switchTab = id => ({ 
+export const switchTab = filteredState => ({ 
   type: SWITCH_TAB, 
-  id: id
+  filteredState: filteredState
 });
 
 
