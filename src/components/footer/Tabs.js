@@ -10,10 +10,6 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators({ switchTab: switchTab }, dispatch)
 }
 
-const mapStateToProps = state => { 
-  return { todos: state.todos };
-};
-
 class ConnectedTabs extends Component {
 
   constructor(props) {
@@ -21,21 +17,6 @@ class ConnectedTabs extends Component {
     this.state = {
       currentTab: TABALL
     };
-  }
-
-  todosFilteredByTab(currentTab) {
-    const { todos } = this.props;
-
-    switch (currentTab) {
-      case TABALL:
-        return todos
-      case TABACTIVE:
-        return todos.filter(todo => !todo.isChecked)
-      case TABCOMPLETED:
-        return todos.filter(todo => todo.isChecked)
-      default:
-        throw new Error('Unknown tab name');
-    }
   }
 
   render () {
@@ -53,8 +34,7 @@ class ConnectedTabs extends Component {
         <a id={pair.id} 
           onClick={() => {
             this.setState({ currentTab: pair.id });
-            //console.log(this.todosFilteredByTab(pair.id));
-            this.props.switchTab(this.todosFilteredByTab(pair.id));
+            this.props.switchTab(pair.id);
           }} 
           className={classnames('tablink', { selected: currentTab === pair.id })}
           >
@@ -72,7 +52,6 @@ class ConnectedTabs extends Component {
   }
 }
 
-const Tabs = connect(mapStateToProps, mapDispatchToProps)(ConnectedTabs);
-//const Tabs = connect(mapStateToProps)(ConnectedTabs);
+const Tabs = connect(null, mapDispatchToProps)(ConnectedTabs);
 
 export default Tabs;
