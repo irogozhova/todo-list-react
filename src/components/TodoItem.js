@@ -20,13 +20,13 @@ class ConnectedItem extends Component {
     };
   }
 
-  handleShowInputEditable = (event) => {
+  handleInputShow = () => {
     this.setState({
       labelClicked: true
     });
   }
 
-  handleHideInputEditable = () => {
+  handleInputHide = () => {
     this.setState({
       labelClicked: false
     });
@@ -43,7 +43,7 @@ class ConnectedItem extends Component {
           <InputEditable 
             currentValue = {label}
             id = {id}  
-            hideInput={this.handleHideInputEditable} />
+            hideInput={this.handleInputHide} />
 
           :
 
@@ -54,7 +54,7 @@ class ConnectedItem extends Component {
               onClick={() => this.props.checkTodo(id, isChecked)}/>
             <div 
               className="label" 
-              onDoubleClick={this.handleShowInputEditable}>
+              onDoubleClick={this.handleInputShow}>
               {label}
             </div>
             <button 

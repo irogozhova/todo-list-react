@@ -24,10 +24,8 @@ const todoReducer = (state = initialState, action) => {
       return { ...state, todos: state.todos.filter(todo => todo.id !== action.id) };
     case CHECK_TODO:
       return { ...state, todos: state.todos.map(todo => {
-        // const {id, isChecked, ...rest} = todo; //const id = todo.id, const isChecked = todo.isChecked
         const {id, isChecked} = todo;
         if (id === action.id) {
-          //return { ...rest, isChecked: !isChecked };
           return {
             ...todo,
             isChecked: !isChecked
@@ -48,13 +46,19 @@ const todoReducer = (state = initialState, action) => {
         else {
           return todo.isChecked ? todo : {...todo, isChecked: !isChecked}
         }
-      }) }; 
+      })}; 
     case CLEAR_COMPLETED:
       return { ...state, todos: state.todos.filter(todo => !todo.isChecked) };
     case SWITCH_TAB:
       return { ...state, filter: action.id };
     case EDIT_TODO:
-      return ;
+      return { ...state, todos: state.todos.map(todo => {
+        const {id, label, ...rest} = todo;
+        if (id === action.id) {
+          return { ...rest, label: action.editedValue };
+        }
+        return todo
+      }) };
     default:
       return state;
   }

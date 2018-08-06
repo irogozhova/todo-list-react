@@ -6,7 +6,7 @@ import {
   TOGGLE_ALL, 
   CLEAR_COMPLETED, 
   SWITCH_TAB 
-} from "../constants/action-types";
+} from '../constants/action-types';
 
 export const addTodo = todo => ({ 
   type: ADD_TODO, 
@@ -19,10 +19,10 @@ export const checkTodo = (id, isChecked) => ({
   isChecked: isChecked
 });
 
-export const editTodo = (id, newValue) => ({ 
+export const editTodo = (id, editedValue) => ({ 
   type: EDIT_TODO, 
   id: id,
-  newValue: newValue
+  editedValue: editedValue
 });
 
 export const removeTodo = id => ({ 
@@ -44,6 +44,3 @@ export const switchTab = id => ({
   type: SWITCH_TAB, 
   id: id
 });
-
-
-

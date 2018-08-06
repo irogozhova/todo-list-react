@@ -23,20 +23,23 @@ class ConnectedInputEditable extends Component {
     });
   }
 
-  // handleBlur = () => {
-  //   this.props.hideInput();
-  //   this.props.editTodo(this.props.id, this.state.editedValue); 
-  // }
+  handleBlur = () => {
+    this.props.editTodo(this.props.id, this.state.editedValue);
+    this.props.hideInput();
+  }
 
   render() {
+    const { id } = this.props;
+    const { editedValue } = this.state;
 
     return (
       <input 
         type="text" 
         className = "label editable"
-        value={this.state.editedValue}
+        id = {id}
+        value={editedValue}
         onChange={this.handleChange}
-        onBlur = {() => this.props.editTodo(this.props.id, this.state.editedValue)}
+        onBlur = {this.handleBlur}
         />
     );
   }
