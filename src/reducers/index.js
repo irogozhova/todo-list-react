@@ -52,13 +52,21 @@ const todoReducer = (state = initialState, action) => {
     case SWITCH_TAB:
       return { ...state, filter: action.id };
     case EDIT_TODO:
-      return { ...state, todos: state.todos.map(todo => {
-        const {id, label, ...rest} = todo;
-        if (id === action.id) {
-          return { ...rest, label: action.editedValue };
-        }
-        return todo
-      }) };
+      if (!action.editedValue) {
+        return { ...state, todos: state.todos.filter(todo => todo.id !== action.id) };
+      }
+      else {
+        return { ...state, todos: state.todos.map(todo => {
+          const { id, label } = todo;
+          if (id === action.id) {
+            return { 
+              ...todo, 
+              label: action.editedValue 
+            };
+          }
+          return todo
+        }) };
+      }
     default:
       return state;
   }

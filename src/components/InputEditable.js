@@ -17,6 +17,10 @@ class ConnectedInputEditable extends Component {
     };
   }
 
+  componentDidMount(){
+    this.nameInput.focus(); 
+  }
+
   handleChange = (event) => {
     this.setState({
       editedValue: event.target.value
@@ -28,18 +32,25 @@ class ConnectedInputEditable extends Component {
     this.props.hideInput();
   }
 
+  handleKeyPress = (event) => {
+    if (event.key !== 'Enter') {
+      return false;
+    }
+    this.handleBlur();
+  }
+
   render() {
-    const { id } = this.props;
-    const { editedValue } = this.state;
 
     return (
       <input 
         type="text" 
         className = "label editable"
-        id = {id}
-        value={editedValue}
+        id = {this.props.id}
+        value={this.state.editedValue}
         onChange={this.handleChange}
         onBlur = {this.handleBlur}
+        onKeyPress={this.handleKeyPress}
+        ref={(input) => { this.nameInput = input; }} 
         />
     );
   }
