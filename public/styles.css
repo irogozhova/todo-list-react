@@ -1,5 +1,5 @@
 @charset "UTF-8";
-html, body, div, span, strong, h1, p, a, img, ol, ul, li, footer, header, menu, section {
+html, body, div, span, h1, a, ol, ul, li, section {
   margin: 0;
   padding: 0;
   border: 0;
@@ -43,12 +43,11 @@ button, input {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none; }
-
-.toggle-all:before {
-  content: '❯';
-  font-size: 22px;
-  color: #e6e6e6;
-  padding: 10px 27px 10px 27px; }
+  .toggle-all:before {
+    content: '❯';
+    font-size: 22px;
+    color: #e6e6e6;
+    padding: 10px 27px 10px 27px; }
 
 .toggle-all:checked:before {
   color: #737373; }
@@ -165,9 +164,8 @@ ul li {
   border: 1px solid transparent;
   border-radius: 3px;
   cursor: pointer; }
-
-.filters li a:hover {
-  border-color: rgba(175, 47, 47, 0.1); }
+  .filters li a:hover {
+    border-color: rgba(175, 47, 47, 0.1); }
 
 .filters li a.selected {
   border-color: rgba(175, 47, 47, 0.2); }

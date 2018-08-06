@@ -1,4 +1,5 @@
 import React from 'react';
+import './styles.css';
 import ReactDOM from 'react-dom';
 import { Provider } from "react-redux";
 
@@ -19,7 +20,7 @@ class App extends React.Component {
   } 
 }
 
-ReactDOM.render( //provider lets react communicate with redux store and gets store as a prop
+ReactDOM.render( // provider lets react communicate with redux store and gets store as a prop
   <Provider store={store}> 
     <App />
   </Provider>,
