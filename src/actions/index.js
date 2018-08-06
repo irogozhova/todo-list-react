@@ -1,7 +1,8 @@
 import { 
   ADD_TODO, 
   REMOVE_TODO, 
-  CHECK_TODO, 
+  CHECK_TODO,
+  EDIT_TODO, 
   TOGGLE_ALL, 
   CLEAR_COMPLETED, 
   SWITCH_TAB 
@@ -16,6 +17,12 @@ export const checkTodo = (id, isChecked) => ({
   type: CHECK_TODO, 
   id: id,
   isChecked: isChecked
+});
+
+export const editTodo = (id, newValue) => ({ 
+  type: EDIT_TODO, 
+  id: id,
+  newValue: newValue
 });
 
 export const removeTodo = id => ({ 

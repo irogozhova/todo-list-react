@@ -4,7 +4,8 @@ import {
   CHECK_TODO, 
   TOGGLE_ALL, 
   CLEAR_COMPLETED,
-  SWITCH_TAB
+  SWITCH_TAB,
+  EDIT_TODO
 } from "../constants/action-types";
 
 import { TABALL } from "../constants/tab-names";
@@ -52,6 +53,8 @@ const todoReducer = (state = initialState, action) => {
       return { ...state, todos: state.todos.filter(todo => !todo.isChecked) };
     case SWITCH_TAB:
       return { ...state, filter: action.id };
+    case EDIT_TODO:
+      return ;
     default:
       return state;
   }
