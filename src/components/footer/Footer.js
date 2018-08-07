@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import classnames from 'classnames';
 
 import CountActive from './CountActive';
@@ -14,15 +14,15 @@ class ConnectedFooter extends Component {
 
   render () {
 
-    const activeTodos = this.props.todos.filter(todo => !todo.isChecked);
-    const numberOfActive = activeTodos.length;
+    const { todos } = this.props;
+    const numberOfActive = (todos.filter(todo => !todo.isChecked)).length;
     
     const checkIfAnyChecked = () => {
-      return this.props.todos.some(todo => todo.isChecked);
+      return todos.some(todo => todo.isChecked);
     }
 
     return (
-      <div className={classnames('footer', { hidden: this.props.todos.length===0 })}>
+      <div className={classnames('footer', { hidden: todos.length === 0 })}>
         <CountActive numberOfActive={numberOfActive}/>
         <Tabs />
         <ClearBtn anyAreChecked={checkIfAnyChecked()}/>

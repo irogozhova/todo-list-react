@@ -1,8 +1,8 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
-import { removeTodo, checkTodo } from "../actions/index";
-import InputEditable from "./InputEditable";
+import { removeTodo, checkTodo } from '../actions/index';
+import InputEditable from './InputEditable';
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -15,6 +15,7 @@ class ConnectedItem extends Component {
 
   constructor(props) {
     super(props);
+
     this.state = {
       labelClicked: false
     };
@@ -33,7 +34,7 @@ class ConnectedItem extends Component {
   }
 
   render() {
-    const { id, label, isChecked } = this.props;
+    const { id, label, isChecked, checkTodo, removeTodo } = this.props;
     
     return (
       <li id={id} className={isChecked ? 'completed' : ''}>
@@ -49,17 +50,17 @@ class ConnectedItem extends Component {
 
           <span>
             <input 
-              type="checkbox" 
-              className="toggle" 
-              onClick={() => this.props.checkTodo(id, isChecked)}/>
+              type='checkbox' 
+              className='toggle' 
+              onClick={() => checkTodo(id, isChecked)}/>
             <div 
-              className="label" 
+              className='label' 
               onDoubleClick={this.handleInputShow}>
               {label}
             </div>
             <button 
-              className="destroy"
-              onClick={() => this.props.removeTodo(id)}>
+              className='destroy'
+              onClick={() => removeTodo(id)}>
             </button>
           </span>
         }

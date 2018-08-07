@@ -1,8 +1,8 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import uniqid from 'uniqid';
 
-import { addTodo } from "../../actions/index";
+import { addTodo } from '../../actions/index';
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -43,9 +43,9 @@ class ConnectedInput extends Component {
 
     return (
       <input
-        type="text"
-        className="new-todo"
-        placeholder="What needs to be done?"
+        type='text'
+        className='new-todo'
+        placeholder='What needs to be done?'
         onKeyPress={this.handleKeyPress}
         onChange={this.handleChange}
         value={this.state.label}

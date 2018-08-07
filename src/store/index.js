@@ -1,5 +1,5 @@
-import { createStore } from "redux";
-import todoReducer from "../reducers/index";
+import { createStore } from 'redux';
+import todoReducer from '../reducers/index';
 import { loadState, saveState } from '../localStorage';
 
 const persistedState = loadState();

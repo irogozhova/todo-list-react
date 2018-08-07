@@ -1,7 +1,8 @@
-import React from "react";
-import { connect } from "react-redux";
-import TodoItem from "./TodoItem"
-import { TABALL, TABACTIVE, TABCOMPLETED } from "../constants/tab-names";
+import React from 'react';
+import { connect } from 'react-redux';
+
+import TodoItem from './TodoItem';
+import { TABALL, TABACTIVE, TABCOMPLETED } from '../constants/tab-names';
 
 const mapStateToProps = state => { 
   return { 
@@ -39,7 +40,7 @@ const ConnectedList = ({ todos, filter }) => {
   const todoItems = filterItems().map(createItems); 
 
   return (
-    <ul className="body">
+    <ul className='body'>
       {todoItems}
     </ul>
   );
@@ -48,4 +49,3 @@ const ConnectedList = ({ todos, filter }) => {
 const List = connect(mapStateToProps)(ConnectedList);
 
 export default List;
-

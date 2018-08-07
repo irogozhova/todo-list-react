@@ -1,10 +1,10 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import classnames from 'classnames';
 
-import { switchTab } from "../../actions/index";
-import { TABALL, TABACTIVE, TABCOMPLETED } from "../../constants/tab-names";
+import { switchTab } from '../../actions/index';
+import { TABALL, TABACTIVE, TABCOMPLETED } from '../../constants/tab-names';
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({ switchTab: switchTab }, dispatch)
@@ -14,6 +14,7 @@ class ConnectedTabs extends Component {
 
   constructor(props) {
     super(props);
+
     this.state = {
       currentTab: TABALL
     };
@@ -21,7 +22,7 @@ class ConnectedTabs extends Component {
 
   render () {
     
-    const currentTab = this.state.currentTab;
+    const { currentTab } = this.state;
 
     const tabArray = [
       {id: TABALL, name: 'All'}, 
@@ -36,8 +37,7 @@ class ConnectedTabs extends Component {
             this.setState({ currentTab: pair.id });
             this.props.switchTab(pair.id);
           }} 
-          className={classnames('tablink', { selected: currentTab === pair.id })}
-          >
+          className={classnames('tablink', { selected: currentTab === pair.id })} >
           {pair.name}
         </a>
       </li>

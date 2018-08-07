@@ -6,9 +6,9 @@ import {
   CLEAR_COMPLETED,
   SWITCH_TAB,
   EDIT_TODO
-} from "../constants/action-types";
+} from '../constants/action-types';
 
-import { TABALL } from "../constants/tab-names";
+import { TABALL } from '../constants/tab-names';
 
 const initialState = {
   todos: [],
@@ -20,8 +20,6 @@ const todoReducer = (state = initialState, action) => {
   switch (type) {
     case ADD_TODO:
       return { ...state, todos: [...state.todos, payload] }; 
-    case REMOVE_TODO:
-      return { ...state, todos: state.todos.filter(todo => todo.id !== action.id) };
     case CHECK_TODO:
       return { ...state, todos: state.todos.map(todo => {
         const {id, isChecked} = todo;
@@ -33,6 +31,8 @@ const todoReducer = (state = initialState, action) => {
         }
         return todo
       }) };
+    case REMOVE_TODO:
+      return { ...state, todos: state.todos.filter(todo => todo.id !== action.id) };
     case TOGGLE_ALL:
       const everyIsChecked = state.todos.every(todo => todo.isChecked);
       return { ...state, todos: state.todos.map(todo => {
@@ -54,7 +54,7 @@ const todoReducer = (state = initialState, action) => {
     case EDIT_TODO:
       if (!action.editedValue) {
         return { ...state, todos: state.todos.filter(todo => todo.id !== action.id) };
-      }
+      } 
       else {
         return { ...state, todos: state.todos.map(todo => {
           const { id, label } = todo;
