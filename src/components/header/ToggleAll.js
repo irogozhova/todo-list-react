@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux';
 import { toggleAll } from '../../actions/index';
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ toggleAll: toggleAll }, dispatch)
+  return bindActionCreators({ toggleAll }, dispatch)
 }
 
 class ConnectedToggleAll extends Component { 

@@ -51,7 +51,7 @@ class ConnectedInputEditable extends Component {
         onChange={this.handleChange}
         onBlur = {this.handleBlur}
         onKeyPress={this.handleKeyPress}
-        ref={(input) => { this.nameInput = input; }} 
+        ref={(input) => { this.nameInput = input; }} //get link to dom element
         />
     );
   }
